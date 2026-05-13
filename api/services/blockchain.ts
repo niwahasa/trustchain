@@ -111,6 +111,8 @@ class BlockchainService {
         return null;
       }
     }
+    return null;
+  }
 
   async verifyByVerificationId(id: string): Promise<DocumentRecord | null> {
     // Note: The contract currently only maps by bytes32 hash. 
