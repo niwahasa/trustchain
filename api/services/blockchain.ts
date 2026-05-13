@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
-import { env } from "../lib/env";
-import { TRUST_CHAIN_ABI } from "./abi";
+import { env } from "../lib/env.js";
+import { TRUST_CHAIN_ABI } from "./abi.js";
 
 interface DocumentRecord {
   hash: string;

@@ -1,15 +1,15 @@
 import { z } from "zod";
-import { createRouter, publicQuery, authedQuery } from "../middleware";
-import { getDb } from "../queries/connection";
-import { documents, signers, auditLogs } from "@db/schema";
+import { createRouter, publicQuery, authedQuery } from "../middleware.js";
+import { getDb } from "../queries/connection.js";
+import { documents, signers, auditLogs } from "../../db/schema.js";
 import { eq, and, desc } from "drizzle-orm";
 import {
   sha256Hash,
   generateVerificationId,
   generateSecureToken,
-} from "../services/crypto";
-import blockchain from "../services/blockchain";
-import emailService from "../services/email";
+} from "../services/crypto.js";
+import blockchain from "../services/blockchain.js";
+import emailService from "../services/email.js";
 
 export const documentRouter = createRouter({
   list: authedQuery.query(async ({ ctx }) => {

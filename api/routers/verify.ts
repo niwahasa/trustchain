@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { createRouter, publicQuery } from "../middleware";
-import { getDb } from "../queries/connection";
-import { documents, receipts } from "@db/schema";
+import { createRouter, publicQuery } from "../middleware.js";
+import { getDb } from "../queries/connection.js";
+import { documents, receipts } from "../../db/schema.js";
 import { eq, or } from "drizzle-orm";
-import blockchain from "../services/blockchain";
+import blockchain from "../services/blockchain.js";
 
 export const verifyRouter = createRouter({
   byId: publicQuery

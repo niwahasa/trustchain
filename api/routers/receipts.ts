@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { createRouter, authedQuery } from "../middleware";
-import { getDb } from "../queries/connection";
-import { receipts, auditLogs } from "@db/schema";
+import { createRouter, authedQuery } from "../middleware.js";
+import { getDb } from "../queries/connection.js";
+import { receipts, auditLogs } from "../../db/schema.js";
 import { eq, desc } from "drizzle-orm";
-import { sha256Hash, generateReceiptId } from "../services/crypto";
-import blockchain from "../services/blockchain";
-import emailService from "../services/email";
+import { sha256Hash, generateReceiptId } from "../services/crypto.js";
+import blockchain from "../services/blockchain.js";
+import emailService from "../services/email.js";
 
 export const receiptRouter = createRouter({
   list: authedQuery.query(async ({ ctx }) => {

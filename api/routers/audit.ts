@@ -1,6 +1,6 @@
-import { createRouter, authedQuery, adminQuery } from "../middleware";
-import { getDb } from "../queries/connection";
-import { auditLogs } from "@db/schema";
+import { createRouter, authedQuery, adminQuery } from "../middleware.js";
+import { getDb } from "../queries/connection.js";
+import { auditLogs } from "../../db/schema.js";
 import { eq, desc } from "drizzle-orm";
 
 export const auditRouter = createRouter({

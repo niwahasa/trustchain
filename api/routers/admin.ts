@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { createRouter, adminQuery } from "../middleware";
-import { getDb } from "../queries/connection";
-import { users, documents, receipts, contracts, auditLogs } from "@db/schema";
+import { createRouter, adminQuery } from "../middleware.js";
+import { getDb } from "../queries/connection.js";
+import { users, documents, receipts, contracts, auditLogs } from "../../db/schema.js";
 import { desc, eq, count } from "drizzle-orm";
-import blockchain from "../services/blockchain";
+import blockchain from "../services/blockchain.js";
 
 export const adminRouter = createRouter({
   stats: adminQuery.query(async () => {

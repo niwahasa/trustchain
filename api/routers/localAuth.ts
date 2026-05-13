@@ -1,10 +1,10 @@
 import { z } from "zod";
 import jwt from "jsonwebtoken";
-import { createRouter, publicQuery, authedQuery } from "../middleware";
-import { getDb } from "../queries/connection";
-import { users, auditLogs } from "@db/schema";
+import { createRouter, publicQuery, authedQuery } from "../middleware.js";
+import { getDb } from "../queries/connection.js";
+import { users, auditLogs } from "../../db/schema.js";
 import { eq } from "drizzle-orm";
-import { hashPassword, verifyPassword, generateSecureToken } from "../services/crypto";
+import { hashPassword, verifyPassword, generateSecureToken } from "../services/crypto.js";
 
 function signToken(userId: number, email: string, role: string): string {
   return jwt.sign({ userId, email, role }, process.env.JWT_SECRET || "trustchain-secret-key-2025", {
