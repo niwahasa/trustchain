@@ -6,7 +6,7 @@
   ],
   "functions": {
     "api/boot.ts": {
-      "runtime": "vercel-node@latest"
+      "runtime": "nodejs22.x"
     }
   }
 }
