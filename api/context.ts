@@ -1,9 +1,9 @@
 import type { FetchCreateContextFnOptions } from "@trpc/server/adapters/fetch";
 import jwt from "jsonwebtoken";
-import type { User } from "@db/schema";
-import { authenticateRequest } from "./kimi/auth";
-import { getDb } from "./queries/connection";
-import { users } from "@db/schema";
+import type { User } from "../db/schema.js";
+import { authenticateRequest } from "./kimi/auth.js";
+import { getDb } from "./queries/connection.js";
+import { users } from "../db/schema.js";
 import { eq } from "drizzle-orm";
 
 export type TrpcContext = {
