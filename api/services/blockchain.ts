@@ -112,6 +112,37 @@ class BlockchainService {
       }
     }
 
+  async verifyByVerificationId(id: string): Promise<DocumentRecord | null> {
+    // Note: The contract currently only maps by bytes32 hash. 
+    // In a real implementation, we would add a mapping for verificationId.
+    // For now, we'll try to treat the ID as a hash if it looks like one, or return null.
+    if (this.contract && id.startsWith("0x")) {
+      return this.verifyDocument(id.slice(2));
+    }
+    return null;
+  }
+
+  async verifyReceiptById(id: string): Promise<ReceiptRecord | null> {
+    if (this.contract) {
+      try {
+        const r = await this.contract.receipts(id);
+        if (!r.exists) return null;
+        return {
+          hash: r.hash,
+          receiptId: r.receiptId,
+          receiptNo: r.receiptNo,
+          customerEmail: r.customerEmail,
+          amountInCents: Number(r.amountInCents),
+          currency: r.currency,
+          isPaid: r.isPaid,
+          timestamp: Number(r.timestamp) * 1000,
+          exists: r.exists,
+        };
+      } catch (error) {
+        console.error("[Blockchain] Verify receipt failed:", error);
+        return null;
+      }
+    }
     return null;
   }
 
