@@ -14,7 +14,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     }
   }
 
-  let body: BodyInit | undefined;
+  let body: Buffer | undefined;
   if (method !== "GET" && method !== "HEAD") {
     const chunks: Buffer[] = [];
     for await (const chunk of req) {
