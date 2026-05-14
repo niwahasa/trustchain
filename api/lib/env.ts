@@ -3,7 +3,12 @@ import "dotenv/config";
 function required(name: string): string {
   const value = process.env[name];
   if (!value && process.env.NODE_ENV === "production") {
-    throw new Error(`Missing required environment variable: ${name}`);
+    const errorMsg = `CRITICAL: Missing environment variable "${name}". Check Vercel Project Settings.`;
+    console.error(errorMsg);
+    // Don't throw if we are on Vercel to allow the app to boot and return a JSON error instead of a text crash
+    if (!process.env.VERCEL) {
+      throw new Error(errorMsg);
+    }
   }
   return value ?? "";
 }

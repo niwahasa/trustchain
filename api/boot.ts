@@ -10,6 +10,19 @@ import { Paths } from "../contracts/constants.js";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
+// Global error handler to ensure JSON responses even on crash
+app.onError((err, c) => {
+  console.error(`Unhandled Error: ${err.message}`, err);
+  return c.json(
+    {
+      error: "Internal Server Error",
+      message: err.message,
+      stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    },
+    500
+  );
+});
+
 app.use(bodyLimit({ maxSize: 50 * 1024 * 1024 }));
 app.get(Paths.oauthCallback, createOAuthCallbackHandler());
 app.use("/api/trpc/*", async (c) => {
@@ -24,7 +37,8 @@ app.all("/api/*", (c) => c.json({ error: "Not Found" }, 404));
 
 export default app;
 
-if (env.isProduction) {
+// Only start standalone server if NOT on Vercel
+if (env.isProduction && !process.env.VERCEL) {
   const { serve } = await import("@hono/node-server");
   const { serveStaticFiles } = await import("./lib/vite.js");
   serveStaticFiles(app);
